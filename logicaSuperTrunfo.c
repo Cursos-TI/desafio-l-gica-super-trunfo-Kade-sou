@@ -88,75 +88,75 @@ int start_menu(){
 	return num;
 }
 
-Carta * comparacao(Carta *carta1, Carta *carta2){
-printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
-
-int vencedor_populacao;
-if (carta1->populacao > carta2->populacao) {
-    vencedor_populacao = carta1->populacao;
-} else {
-    vencedor_populacao = carta2->populacao;
-}
-printf("População:\t\t%d \t x \t%d \t-> Vencedor %d\n", carta1->populacao, carta2->populacao, vencedor_populacao);
-
-float vencedor_area;
-if (carta1->area > carta2->area) {
-    vencedor_area = carta1->area;
-} else {
-    vencedor_area = carta2->area;
-}
-printf("Area: \t\t%f \t x \t%f \t-> Vencedor %f\n", carta1->area, carta2->area, vencedor_area);
-
-float vencedor_pib;
-if (carta1->pib > carta2->pib) {
-    vencedor_pib = carta1->pib;
-} else {
-    vencedor_pib = carta2->pib;
-}
-printf("PIB: \t\t%f \t x \t%f \t-> Vencedor %f\n", carta1->pib, carta2->pib, vencedor_pib);
-
-int vencedor_pontos_turisticos;
-if (carta1->pontos_turis > carta2->pontos_turis) {
-    vencedor_pontos_turisticos = carta1->pontos_turis;
-} else {
-    vencedor_pontos_turisticos = carta2->pontos_turis;
-}
-printf("Pontos Turisticos:\t%d \t x \t%d \t-> Vencedor %d\n", carta1->pontos_turis, carta2->pontos_turis, vencedor_pontos_turisticos);
-
-float vencedor_densidade;
-if (carta1->densi_pop < carta2->densi_pop) {
-    vencedor_densidade = carta1->densi_pop;
-} else {
-    vencedor_densidade = carta2->densi_pop;
-}
-printf("Densidade Pop.:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->densi_pop, carta2->densi_pop, vencedor_densidade);
-
-float vencedor_pib_per_capita;
-if (carta1->pib_per_capita > carta2->pib_per_capita) {
-    vencedor_pib_per_capita = carta1->pib_per_capita;
-} else {
-    vencedor_pib_per_capita = carta2->pib_per_capita;
-}
-printf("PIB per Capita:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->pib_per_capita, carta2->pib_per_capita, vencedor_pib_per_capita);
-
-float vencedor_super_poder;
-if (carta1->super_poder > carta2->super_poder) {
-    vencedor_super_poder = carta1->super_poder;
-} else {
-    vencedor_super_poder = carta2->super_poder;
-}
-printf("Super Poder:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->super_poder, carta2->super_poder, vencedor_super_poder);
-
-if (carta1->super_poder > carta2->super_poder) {
-    vencedor_super_poder = carta1->super_poder;
-    return carta1;
-} else {
-    vencedor_super_poder = carta2->super_poder;
-    return carta2;
+int comparar_populacao(Carta *carta1, Carta *carta2) {
+    if (carta1->populacao > carta2->populacao) {
+        return carta1->populacao;
+    } else {
+        return carta2->populacao;
+    }
 }
 
+float comparar_area(Carta *carta1, Carta *carta2) {
+    if (carta1->area > carta2->area) {
+        return carta1->area;
+    } else {
+        return carta2->area;
+    }
 }
 
+float comparar_pib(Carta *carta1, Carta *carta2) {
+    if (carta1->pib > carta2->pib) {
+        return carta1->pib;
+    } else {
+        return carta2->pib;
+    }
+}
+
+int comparar_pontos_turisticos(Carta *carta1, Carta *carta2) {
+    if (carta1->pontos_turis > carta2->pontos_turis) {
+        return carta1->pontos_turis;
+    } else {
+        return carta2->pontos_turis;
+    }
+}
+
+float comparar_densidade(Carta *carta1, Carta *carta2) {
+    if (carta1->densi_pop < carta2->densi_pop) {
+        return carta1->densi_pop;
+    } else {
+        return carta2->densi_pop;
+    }
+}
+
+float comparar_pib_per_capita(Carta *carta1, Carta *carta2) {
+    if (carta1->pib_per_capita > carta2->pib_per_capita) {
+        return carta1->pib_per_capita;
+    } else {
+        return carta2->pib_per_capita;
+    }
+}
+
+float comparar_super_poder(Carta *carta1, Carta *carta2) {
+    if (carta1->super_poder > carta2->super_poder) {
+        return carta1->super_poder;
+    } else {
+        return carta2->super_poder;
+    }
+}
+
+Carta* comparacao(Carta *carta1, Carta *carta2) {
+    printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+
+    printf("População:\t\t%d \t x \t%d \t-> Vencedor %d\n", carta1->populacao, carta2->populacao, comparar_populacao(carta1, carta2));
+    printf("Area: \t\t%f \t x \t%f \t-> Vencedor %f\n", carta1->area, carta2->area, comparar_area(carta1, carta2));
+    printf("PIB: \t\t%f \t x \t%f \t-> Vencedor %f\n", carta1->pib, carta2->pib, comparar_pib(carta1, carta2));
+    printf("Pontos Turisticos:\t%d \t x \t%d \t-> Vencedor %d\n", carta1->pontos_turis, carta2->pontos_turis, comparar_pontos_turisticos(carta1, carta2));
+    printf("Densidade Pop.:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->densi_pop, carta2->densi_pop, comparar_densidade(carta1, carta2));
+    printf("PIB per Capita:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->pib_per_capita, carta2->pib_per_capita, comparar_pib_per_capita(carta1, carta2));
+    printf("Super Poder:\t%f \t x \t%f \t-> Vencedor %f\n", carta1->super_poder, carta2->super_poder, comparar_super_poder(carta1, carta2));
+
+    return (carta1->super_poder > carta2->super_poder) ? carta1 : carta2;
+}
 int main() {
     // Definição das variáveis para armazenar as propriedades das cidades
     // Você pode utilizar o código do primeiro desafio
@@ -190,6 +190,8 @@ int main() {
     // } else {
     //     printf("Cidade 2 tem maior população.\n");
     // }
+
+	
 	
     Carta *winner = cartas[0];
     if(nc > 2){
