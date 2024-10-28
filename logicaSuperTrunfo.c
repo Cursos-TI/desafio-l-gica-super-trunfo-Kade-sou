@@ -157,6 +157,121 @@ Carta* comparacao(Carta *carta1, Carta *carta2) {
 
     return (carta1->super_poder > carta2->super_poder) ? carta1 : carta2;
 }
+
+void listar_cartas(Carta **cartas, int nc){
+    for(int i = 0; i < nc; i++){
+        printf("%d -> Carta %c0%d\n", i, cartas[i]->estado, cartas[i]->cidade);
+    }
+}
+
+enum Atributos {
+    POPULACAO = 0,
+    AREA,
+    PIB,
+    PONTOS_TURISTICOS,
+    DENSIDADE,
+    PIB_PER_CAPITA,
+    SUPER_PODER
+};
+
+void menu2(Carta *carta1, Carta *carta2){
+    int input;
+
+    do{
+     printf(
+            "Selecione um atributo:\n"
+            "0 - POPULACAO\n"
+            "1 - AREA\n"
+            "2 - PIB\n"
+            "3 - PONTOS_TURISTICOS\n"
+            "4 - DENSIDADE\n"
+            "5 - PIB_PER_CAPITA\n"
+            "6 - SUPER_PODER\n"
+            "-1 - para sair\n"
+        );
+    scanf("%d", &input);
+    switch (input) {
+        case POPULACAO:
+            printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("População:\t\t%d \t x \t%d \t-> Vencedor %d\n", carta1->populacao, carta2->populacao, comparar_populacao(carta1, carta2));
+            break;
+        case AREA:
+            printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("Área: \t\t%f \t x \t%f \t-> Vencedor %f\n", 
+                carta1->area, carta2->area, comparar_area(carta1, carta2));
+            break;
+        case PIB:
+            printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("PIB: \t\t%f \t x \t%f \t-> Vencedor %f\n", 
+                carta1->pib, carta2->pib, comparar_pib(carta1, carta2));
+            break;
+        case PONTOS_TURISTICOS:
+            printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("Pontos Turísticos:\t%d \t x \t%d \t-> Vencedor %d\n", 
+                carta1->pontos_turis, carta2->pontos_turis, comparar_pontos_turisticos(carta1, carta2));
+            break;
+        case DENSIDADE:
+        printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("Densidade Pop.:\t%f \t x \t%f \t-> Vencedor %f\n", 
+                carta1->densi_pop, carta2->densi_pop, comparar_densidade(carta1, carta2));
+            break;
+        case PIB_PER_CAPITA:
+        printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("PIB per Capita:\t%f \t x \t%f \t-> Vencedor %f\n", 
+                carta1->pib_per_capita, carta2->pib_per_capita, comparar_pib_per_capita(carta1, carta2));
+            break;
+        case SUPER_PODER:
+        printf("\n\n\t\tCarta %c0%d \t vs \t Carta %c0%d\n", carta1->estado, carta1->cidade, carta2->estado, carta2->cidade);
+            printf("Super Poder:\t%f \t x \t%f \t-> Vencedor %f\n", 
+                carta1->super_poder, carta2->super_poder, comparar_super_poder(carta1, carta2));
+            break;
+        case -1:
+            printf("\nSaindo...\n");
+            break ;
+        default:
+            printf("\nAtributo inválido\n");
+            break;
+    }
+    }while(input != -1);
+
+}
+void menu_interativo(Carta **cartas, int nc){
+
+	int input1, input2, c1, c2;
+    printf("\n Agora que as cartas ja foram cadastradas vamos Brincar.\n");
+	do{
+        listar_cartas(cartas, nc);
+		printf("\n Digite o numero das cartas que quiser comparar!\nCarta 1: ");
+        scanf("%d", &c1);
+        printf("\nCarta Selecionada -> %d -> Codigo %c0%d\nCarta 2: ", c1, cartas[c1]->estado, cartas[c1]->cidade);
+        scanf("%d", &c2);
+        printf("\nCarta Selecionada -> %d -> Codigo %c0%d\n", c2, cartas[c2]->estado, cartas[c2]->cidade);
+
+        if(c1 >= nc || c2 >= nc)
+            return ;
+        do{
+            printf("\nBoas escolhas agora vamos jogar.\nPara ver a vencedora digite 1\nPara comparar atributos digite 2\nPara mudar as cartas selecionadas digite 3\n");
+            scanf("%d", &input2);
+            switch(input2){
+                case 1:
+                        comparacao(cartas[c1], cartas[c2]);
+                        break ;
+                case 2:
+                        menu2(cartas[c1], cartas[c2]);
+                        break ;
+                case 3:
+                        printf ("\nRetornando...\n");
+                        break ;
+                default:
+                        printf ("\nValor invalido!\n");
+            }
+        }while(input2 != 3);
+        
+        printf("Se quiser sair do jogo digite 42\n");
+        scanf("%d", &input1);
+	}while(input1 != 42);
+}
+
 int main() {
     // Definição das variáveis para armazenar as propriedades das cidades
     // Você pode utilizar o código do primeiro desafio
@@ -190,10 +305,13 @@ int main() {
     // } else {
     //     printf("Cidade 2 tem maior população.\n");
     // }
+    menu_interativo(cartas, nc);
 
-	
-	
+    // carta vencedora.... 
+
     Carta *winner = cartas[0];
+    Carta *empate;
+    int empate_flag = 0;
     if(nc > 2){
     for(int i = 1; i < nc; i++){
 	    winner = comparacao(cartas[i], winner);
@@ -201,8 +319,23 @@ int main() {
     }
     else if (nc > 1) 
 	    winner = comparacao(winner, cartas[1]);
+
+    for(int i = 0; i < nc; i++){
+        if (winner->super_poder == cartas[i]->super_poder && !(winner->estado == cartas[i]->estado && winner->cidade == cartas[i]->cidade)){
+            empate = cartas[i];
+            empate_flag = 1;
+        }
+    }
+
+    if(empate_flag == 0){
     printf("\n\nCarta Vencedora -> ");
     info(winner);
+    }
+    else{
+        printf("\n Deu empate \n");
+        comparacao(winner, empate);
+    }
+
     for(int i = 0; i < nc; i++)
 	    free(cartas[i]);
     free(cartas);
